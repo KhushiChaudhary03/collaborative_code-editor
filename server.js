@@ -110,7 +110,6 @@ io.on('connection', (socket) => {
 
   // ── Create file ────────────────────────────────────────────────────────
   socket.on(ACTIONS.CREATE_FILE, ({ roomId, filename }) => {
-    console.log("CREATE_FILE RECEIVED:", roomId, filename);
 
     if (!roomId || !filename) return;
     if (!roomState[roomId]) roomState[roomId] = createDefaultRoom();
@@ -218,7 +217,6 @@ io.on('connection', (socket) => {
 
   // ── Chat relay ─────────────────────────────────────────────────────────
   socket.on(ACTIONS.CHAT_MESSAGE, ({ roomId, message }) => {
-    console.log("CHAT_MESSAGE RECEIVED:", roomId, message);
 
     socket.in(roomId).emit(ACTIONS.CHAT_MESSAGE, { message });
   });
