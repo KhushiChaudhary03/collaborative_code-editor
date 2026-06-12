@@ -1,0 +1,191 @@
+/* ── FileExplorer.css ─────────────────────────────────────────────────────── */
+
+.fe-root {
+  display: flex;
+  flex-direction: column;
+  width: var(--explorer-w, 176px);
+  min-width: 0;
+  height: 100%;
+  background: var(--bg-canvas, #161b22);
+  border-right: 1px solid var(--border-subtle, rgba(99,110,123,0.22));
+  overflow: hidden;
+  flex-shrink: 0;
+  user-select: none;
+  transition: width 0.2s ease, min-width 0.2s ease;
+}
+
+/* Collapsed state: narrow strip */
+.fe-root--collapsed {
+  width: 36px;
+  min-width: 36px;
+}
+
+/* Inside drawer: fill available space */
+.drawer-body--fill .fe-root {
+  width: 100% !important;
+  border-right: none;
+  flex-shrink: 1;
+}
+
+/* ── Header ─────────────────────────────────────────────────────────────── */
+.fe-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 6px 0 8px;
+  height: 36px; min-height: 36px;
+  border-bottom: 1px solid var(--border-subtle, rgba(99,110,123,0.22));
+  flex-shrink: 0;
+  background: var(--bg-canvas, #161b22);
+}
+
+.fe-title-row {
+  display: flex; align-items: center; gap: 5px;
+  min-width: 0; flex: 1; overflow: hidden;
+}
+
+.fe-collapse-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px; flex-shrink: 0;
+  background: transparent; border: none; border-radius: 3px;
+  color: var(--text-muted, #545d68);
+  cursor: pointer; padding: 0;
+  transition: background var(--t-fast), color var(--t-fast);
+}
+.fe-collapse-btn:hover { background: var(--bg-overlay, #22272e); color: var(--text-secondary, #8b949e); }
+
+.fe-title {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.1em; color: var(--text-muted, #545d68);
+  text-transform: uppercase; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis;
+}
+
+.fe-count {
+  font-size: 10px; color: var(--text-muted, #545d68);
+  background: var(--bg-muted, #2d333b);
+  padding: 0 5px; border-radius: 99px;
+  min-width: 16px; text-align: center;
+  line-height: 16px; height: 16px;
+  display: inline-flex; align-items: center; flex-shrink: 0;
+}
+
+.fe-new-btn {
+  width: 20px; height: 20px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: transparent;
+  border: 1px solid var(--border-accent, rgba(79,140,255,0.4));
+  border-radius: 4px; color: var(--accent, #4f8cff);
+  font-size: 15px; line-height: 1; cursor: pointer;
+  transition: all 0.12s ease; padding: 0; font-weight: 300;
+}
+.fe-new-btn:hover {
+  background: var(--accent-dim, rgba(79,140,255,0.12));
+  border-color: var(--accent, #4f8cff);
+  transform: scale(1.05);
+}
+
+/* ── File list ──────────────────────────────────────────────────────────── */
+.fe-file-list {
+  flex: 1; overflow-y: auto; overflow-x: hidden;
+  padding: 3px 0;
+}
+.fe-file-list::-webkit-scrollbar { width: 3px; }
+.fe-file-list::-webkit-scrollbar-track { background: transparent; }
+.fe-file-list::-webkit-scrollbar-thumb {
+  background: var(--border-muted, rgba(99,110,123,0.4));
+  border-radius: 2px;
+}
+
+/* ── File row ───────────────────────────────────────────────────────────── */
+.fe-file-row {
+  display: flex; align-items: center; gap: 6px;
+  padding: 0 6px 0 10px;
+  height: 28px;
+  cursor: pointer;
+  border-left: 2px solid transparent;
+  transition: background 0.1s ease;
+  position: relative; outline: none;
+}
+.fe-file-row:hover { background: rgba(99,110,123,0.1); }
+.fe-file-row:focus-visible { outline: 1px solid var(--accent); outline-offset: -1px; }
+.fe-file-row:hover .fe-file-actions { opacity: 1; pointer-events: auto; }
+
+/* Active */
+.fe-file-row--active {
+  background: var(--accent-dim, rgba(79,140,255,0.10)) !important;
+  border-left-color: var(--accent, #4f8cff);
+}
+.fe-file-row--active .fe-file-name {
+  color: var(--text-bright, #e6edf3);
+  font-weight: 500;
+}
+.fe-file-row--active .fe-file-badge {
+  background: rgba(79,140,255,0.18);
+  border-color: rgba(79,140,255,0.35);
+  color: var(--accent-strong);
+}
+
+/* Extension badge */
+.fe-file-badge {
+  flex-shrink: 0;
+  min-width: 28px; height: 15px;
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0 4px; border-radius: 3px;
+  background: rgba(99,110,123,0.12);
+  border: 1px solid rgba(99,110,123,0.2);
+  color: var(--text-muted);
+  font-size: 8px; font-weight: 700; letter-spacing: 0.04em;
+  transition: all 0.1s;
+}
+
+/* File name */
+.fe-file-name {
+  flex: 1;
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-secondary, #8b949e);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  min-width: 0;
+  transition: color 0.1s;
+}
+
+/* Rename input */
+.fe-rename-input {
+  flex: 1; min-width: 0;
+  background: var(--bg-surface, #1c2128);
+  border: 1px solid var(--accent, #4f8cff);
+  border-radius: 3px; color: var(--text-bright, #e6edf3);
+  font-size: 11px; font-family: 'JetBrains Mono', monospace;
+  padding: 2px 5px; outline: none; caret-color: var(--accent, #4f8cff);
+}
+.fe-rename-input:focus { box-shadow: 0 0 0 2px var(--accent-dim, rgba(79,140,255,0.15)); }
+
+/* Action buttons */
+.fe-file-actions {
+  display: flex; gap: 1px;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.1s ease; flex-shrink: 0;
+}
+.fe-action-btn {
+  width: 18px; height: 18px; background: transparent; border: none;
+  border-radius: 3px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0; color: var(--text-muted, #545d68);
+  transition: background 0.1s ease, color 0.1s ease;
+}
+.fe-action-btn:hover { background: var(--bg-muted, #2d333b); color: var(--text-primary, #cdd9e5); }
+.fe-action-btn--delete:hover { background: var(--red-dim, rgba(248,81,73,0.15)); color: var(--red, #f85149); }
+
+/* New file row */
+.fe-new-file-row {
+  display: flex; align-items: center;
+  padding: 0 6px 0 12px; height: 28px;
+  border-left: 2px solid var(--accent, #4f8cff);
+  background: var(--accent-dim, rgba(79,140,255,0.08));
+}
+
+/* Empty state */
+.fe-empty {
+  padding: 20px 10px; text-align: center;
+  color: var(--text-muted, #545d68);
+  font-size: 11px; line-height: 1.7;
+}

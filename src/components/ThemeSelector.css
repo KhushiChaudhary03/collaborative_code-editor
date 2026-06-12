@@ -1,0 +1,134 @@
+/* ── ThemeSelector.css ─────────────────────────────────────────────────────── */
+
+.ts-root {
+  position: relative;
+  width: 100%;
+}
+
+.ts-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--text-muted, #545d68);
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.ts-label-icon { font-size: 12px; }
+
+/* ── Trigger button ─────────────────────────────────────────────────────── */
+.ts-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 9px;
+  background: var(--bg-surface, #1c2128);
+  border: 1px solid var(--border-subtle, rgba(99,110,123,0.25));
+  border-radius: 6px;
+  color: var(--text-secondary, #8b949e);
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  text-align: left;
+}
+
+.ts-trigger:hover,
+.ts-trigger--open {
+  background: var(--bg-overlay, #22272e);
+  border-color: var(--accent, #4f8cff);
+  color: var(--text-primary, #cdd9e5);
+}
+
+.ts-trigger-text {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Colour dot ───────────────────────────────────────────────────────────── */
+.ts-trigger-dot,
+.ts-option-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.ts-trigger-dot[data-dark='true'],
+.ts-option-dot[data-dark='true']  { background: #21262d; border-color: #444c56; }
+.ts-trigger-dot[data-dark='false'],
+.ts-option-dot[data-dark='false'] { background: #f0f2f5; border-color: #c8d0d9; }
+
+/* ── Chevron ──────────────────────────────────────────────────────────────── */
+.ts-chevron {
+  font-size: 10px;
+  color: var(--text-muted, #545d68);
+  transition: transform 0.12s ease;
+  flex-shrink: 0;
+}
+.ts-chevron--up { transform: rotate(180deg); }
+
+/* ── Dropdown ──────────────────────────────────────────────────────────────── */
+.ts-dropdown {
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--bg-overlay, #22272e);
+  border: 1px solid var(--border-muted, rgba(99,110,123,0.4));
+  border-radius: 8px;
+  box-shadow: 0 -8px 24px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
+  z-index: 200;
+  overflow: hidden;
+  animation: ts-drop 0.1s ease;
+}
+
+@keyframes ts-drop {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Option ─────────────────────────────────────────────────────────────────── */
+.ts-option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 11px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-secondary, #8b949e);
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.1s ease;
+  text-align: left;
+}
+
+.ts-option:last-child { border-bottom: none; }
+
+.ts-option:hover {
+  background: var(--bg-muted, #2d333b);
+  color: var(--text-primary, #cdd9e5);
+}
+
+.ts-option--active {
+  background: var(--accent-dim, rgba(79,140,255,0.12));
+  color: var(--text-bright, #e6edf3);
+  font-weight: 500;
+}
+
+.ts-option-check {
+  margin-left: auto;
+  color: var(--accent, #4f8cff);
+  font-size: 11px;
+  font-weight: 700;
+}
